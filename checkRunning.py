@@ -7,6 +7,8 @@ import subprocess
 import time
 
 def mail(gmail_user,gmail_pwd,to, subject='ACE-net job status', text='Run has started'):
+    ''' Sends an email from a gmail account to a user with a subject and a
+        message '''
 
     msg = MIMEMultipart()
 
@@ -26,7 +28,7 @@ def mail(gmail_user,gmail_pwd,to, subject='ACE-net job status', text='Run has st
     mailServer.close()
 
 def readInFiles():
-    '''Read in the service providers information and the username and password'''
+    '''Read in the email and password'''
 
     with open("userInfo.txt",'r') as f:
         user=f.readline()
@@ -48,6 +50,7 @@ if __name__=="__main__":
     while True:
         command=subprocess.check_output(["qstat"])
         match=re.search(pattern,command)
+
         if match!=None:
             mail(user,passwd,sendTo)
             break
